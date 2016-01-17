@@ -1,0 +1,10 @@
+[{
+  "RoomNumber": "100",
+  "TypeID": "111"
+}, {
+  "RoomNumber": "200",
+  "TypeID": "222"
+}, {
+  "RoomNumber": "300",
+  "TypeID": "333"
+}]
