@@ -102,12 +102,12 @@ $json_attributes = array("color", "speed", "type");
 $json_data=array("red", "slow", "harded");
 $json_name="Cars";
 
-$json_data2=array("Nickelia Charles","Scarborough","Trinidad");
+$json_data2=array("Nickelia Lionjack","Scarborough","Trinidad");
 
 
 $template =Jengine::json_template("",$json_attributes);//or result returned by json_mysqli_result($result )
 
-$newtemplate=Jengine::json_add('http://localhost/AngularJS/test/test.json',$json_data2 );
+$newtemplate=Jengine::json_add('http://localhost/PHP-JSONengine/test/test.json',$json_data2 );
 //echo $newtemplate;
 //$newtemplate=Jengine::json_add($template,$json_data );
 
