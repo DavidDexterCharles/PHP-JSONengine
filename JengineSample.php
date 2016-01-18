@@ -16,7 +16,7 @@ $json_attributes = array("color", "speed", "type");//attributes of a car object
 $template=Jengine::json_template($json_attributes);
 echo $template;
 
-//Results:
+//Result:
 /*
   [{
        "color": "*empty*",
@@ -35,11 +35,23 @@ $json_data2=array("Green", "fast", "viper");
 $template=Jengine::json_add($template,$json_data1);
 echo $template;
 
+//Result:
+
+//[{"color":"red","speed":"slow","type":"volvo"}]
+
+
+
+
+
 echo '</br></br>';
 
 $template=Jengine::json_add($template,$json_data2);
 echo $template;
 echo '</br></br></br>';
+
+//Result:
+
+//[{"color":"red","speed":"slow","type":"volvo"},{"color":"Green","speed":"fast","type":"viper"}]
 
 echo "<b> Using template loaded from  data source</b>";echo '</br></br>';
 echo '</br></br>';
@@ -47,35 +59,5 @@ echo '</br></br>';
 $template=Jengine::json_template('http://localhost/PHP-JSONengine/data.json');
 echo $template;
 
+//[{ "Name": "David Charles", "City": "Berlin", "Country": "Germany" }, { "Name": "Ana Trujillo Emparedados y helados", "City": "MÃ©xico D.F.", "Country": "Mexico" }, { "Name": "Antonio Moreno TaquerÃ­a", "City": "MÃ©xico D.F.", "Country": "Mexico" }]
 
-
-
-
-
-
-//$json_attributes = array("color", "speed", "type");
-//$json_data1=array("red", "slow", "gold");
-//$json_name="Cars";
-//
-//$json_data2=array("Nickelia Lionjack","Scarborough","Trinidad");
-//
-//
-//
-//
-////$template =Jengine::json_template($json_attributes);//or result returned by json_mysqli_result($result )
-//
-//$template =Jengine::json_template('http://localhost/PHP-JSONengine/test/test.json');
-////echo $template;
-//
-//
-////link to a json source
-////json attributes, that would by default be used to create an empty json template
-////the
-//
-//
-//$template=Jengine::json_add($template,$json_data2 );
-//$template=Jengine::json_add($template,$json_data1 );
-//
-////$check2=Jengine::json_mysqli_result($colors);
-//
-//echo $template;
