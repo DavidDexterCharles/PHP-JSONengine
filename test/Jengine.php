@@ -21,6 +21,30 @@ class Jengine
         return $json;
     }
 
+    public function json_api_call($template)
+    {
+        if(filter_var($template, FILTER_VALIDATE_URL)){
+
+            $service_url = $template;
+            $curl = curl_init($service_url);
+
+            curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($curl, CURLOPT_POST, true);
+            // curl_setopt($curl, CURLOPT_POSTFIELDS, $curl_post_data);
+            $curl_response = curl_exec($curl);
+            // echo $curl_response;
+            $template=$curl_response;
+            curl_close($curl);
+            return $template;
+
+        }
+        else
+            return false;
+
+    }
+
+
+    /*
     public static function json_template($objectname,$objectattributes )
     {
         $instance = new self();
@@ -28,37 +52,54 @@ class Jengine
         else
         $template =array($objectname=>$instance->buildkeyval($objectattributes));
         return json_encode($template);
+    }*/
+    public static function json_template($objectattributes )
+    {
+        $instance = new self();
+        $valid_api_template=$instance->json_api_call($objectattributes);
+        if($valid_api_template==false) {
+            $template = array($instance->buildkeyval($objectattributes));//assume attributes passed is to build a new template
+            return json_encode($template);
+        }
+        else {
+            $template = $valid_api_template;
+            return $template;
+        }
     }
     public static function json_add($template,$data )
     {
-       if(filter_var($template, FILTER_VALIDATE_URL)){
+//       if(filter_var($template, FILTER_VALIDATE_URL)){
+//
+//           $service_url = $template;
+//           $curl = curl_init($service_url);
+//
+//           curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+//           curl_setopt($curl, CURLOPT_POST, true);
+//          // curl_setopt($curl, CURLOPT_POSTFIELDS, $curl_post_data);
+//           $curl_response = curl_exec($curl);
+//          // echo $curl_response;
+//           $template=$curl_response;
+//           curl_close($curl);
+//
+//       }
 
-           $service_url = $template;
-           $curl = curl_init($service_url);
+        $instance = new self();
+        $valid_api_template=$instance->json_api_call($template);
+        if($valid_api_template==false)
+        {
 
-           curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-           curl_setopt($curl, CURLOPT_POST, true);
-          // curl_setopt($curl, CURLOPT_POSTFIELDS, $curl_post_data);
-           $curl_response = curl_exec($curl);
-          // echo $curl_response;
-           $template=$curl_response;
-           curl_close($curl);
-
-       }
-
-
-        if($template[0]!='['){// check to see if json have square bracket syntax
-            $template="[".$template."]";}
-        $template_array=json_decode($template,true);
-        //echo sizeof($template_array[0]);
-        //echo sizeof($data);
-        //print_r($template_array[0]);
-        $i=sizeof($data);
-        $newindex=0;
-        if(sizeof($template_array[0])==sizeof($data)) {
+            if($template[0]!='['){// check to see if json have square bracket syntax
+                $template="[".$template."]";}
+            $template_array=json_decode($template,true);
+            //echo sizeof($template_array[0]);
+            //echo sizeof($data);
+            //print_r($template_array[0]);
+            $i=sizeof($data);
+            $newindex=0;
+            if(sizeof($template_array[0])==sizeof($data)) {
 
                 foreach ($template_array[0] as $index => $value) {
-                   // echo  $index;
+                    // echo  $index;
                     if ($value == "*empty*") {
                         $template_array[0][$index]=$data[(sizeof($data)-$i)];
                         $i=$i-1;
@@ -73,10 +114,17 @@ class Jengine
 
                 }
 
+            }
+            $template=json_encode($template_array);
+
         }
-        $template=json_encode($template_array);
+        else $template=$valid_api_template;
+
+
+
         return $template;
     }
+
 
 
     public static function json_mysqli_result($result ) {
@@ -99,21 +147,21 @@ class Jengine
 }
 
 $json_attributes = array("color", "speed", "type");
-$json_data=array("red", "slow", "harded");
+$json_data1=array("red", "slow", "harded");
 $json_name="Cars";
 
 $json_data2=array("Nickelia Lionjack","Scarborough","Trinidad");
 
 
-$template =Jengine::json_template("",$json_attributes);//or result returned by json_mysqli_result($result )
+//$template =Jengine::json_template($json_attributes);//or result returned by json_mysqli_result($result )
 
-$newtemplate=Jengine::json_add('http://localhost/PHP-JSONengine/test/test.json',$json_data2 );
-//echo $newtemplate;
-//$newtemplate=Jengine::json_add($template,$json_data );
+$template =Jengine::json_template('http://localhost/PHP-JSONengine/test/test.json');
 
-echo $newtemplate;
 
+$template=Jengine::json_add($template,$json_data2 );
+$template=Jengine::json_add($template,$json_data1 );
 
 //$check2=Jengine::json_mysqli_result($colors);
 
-//echo $check->toJSON();
+echo $template;
+
