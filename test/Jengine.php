@@ -77,6 +77,52 @@ class Jengine
         return (json_last_error() == JSON_ERROR_NONE);
     }
 
+    public static function json_remove($template,$data_to_delete )//remove sets from json object whose attribute values matches data passed in
+    {
+        $instance = new self();
+        $valid_api_template=$instance->json_api_call($template);
+        if($valid_api_template==false)
+        {
+
+            if($template[0]!='['){// check to see if json have square bracket syntax
+                $template="[".$template."]";}
+            $template_array=json_decode($template,true);
+            //echo sizeof($template_array[0]);
+            //echo sizeof($data);
+            //print_r($template_array[0]);
+            $i=sizeof($data_to_delete);
+            $criteriamet=false;
+            $criteriacount=0;
+
+
+            for ($x = 0; $x <sizeof($template_array); $x++) {
+                foreach ($data_to_delete as $index => $value){
+
+                    if($template_array[$x][$index]==$value)
+                    {
+
+                        $criteriacount=$criteriacount+1;
+                        print_r($template_array[$x]);
+                        print_r($data_to_delete);
+
+                    }
+
+
+                }
+            }
+
+
+
+        }
+        else $template=$valid_api_template;
+
+
+
+        return $template;
+    }
+
+
+
     public static function json_add($template,$data )
     {
 
@@ -145,16 +191,16 @@ class Jengine
 
 $json_attributes = array("color", "speed", "type");
 $json_data1=array("red", "slow", "gold");
-$json_name="Cars";
+
 
 $json_data2=array("Nickelia Lionjack","Scarborough","Trinidad");
 
 
 
 
-//$template =Jengine::json_template($json_attributes);//or result returned by json_mysqli_result($result )
+$template =Jengine::json_template($json_attributes);//or result returned by json_mysqli_result($result )
 
-$template =Jengine::json_template('http://localhost/PHP-JSONengine/test/test.json');
+//$template =Jengine::json_template('http://localhost/PHP-JSONengine/test/test.json');
 //echo $template;
 
 
@@ -168,5 +214,11 @@ $template=Jengine::json_add($template,$json_data1 );
 
 //$check2=Jengine::json_mysqli_result($colors);
 
-echo $template;
+//echo $template;
 
+$data_to_delete=array("color"=>"red", "type"=>"gold");
+$template =Jengine::json_remove($template,$data_to_delete );
+//echo $template;
+
+
+//print_r(json_decode($template,true));
