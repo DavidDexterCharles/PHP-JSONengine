@@ -143,30 +143,3 @@ class Jengine
     }
 }
 
-$json_attributes = array("color", "speed", "type");
-$json_data1=array("red", "slow", "gold");
-$json_name="Cars";
-
-$json_data2=array("Nickelia Lionjack","Scarborough","Trinidad");
-
-
-
-
-//$template =Jengine::json_template($json_attributes);//or result returned by json_mysqli_result($result )
-
-$template =Jengine::json_template('http://localhost/PHP-JSONengine/test/test.json');
-//echo $template;
-
-
-//link to a json source
-//json attributes, that would by default be used to create an empty json template
-//the
-
-
-$template=Jengine::json_add($template,$json_data2 );
-$template=Jengine::json_add($template,$json_data1 );
-
-//$check2=Jengine::json_mysqli_result($colors);
-
-echo $template;
-
