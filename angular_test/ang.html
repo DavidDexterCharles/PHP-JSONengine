@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!--<script src="script.js"></script>-->
+    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/css/bootstrap-combined.min.css">
+    <link href="http://netdna.bootstrapcdn.com/font-awesome/3.0.2/css/font-awesome.css" rel="stylesheet">
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.4/angular.min.js"></script>
+
+    <!--<script src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/js/bootstrap.min.js"></script>-->
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <?php include 'Jengine.php';?>
+
+
+</head>
+<body>
+<div
+        class="container well"
+        ng-app="MainApp"
+        ng-controller="MainCtrl"
+>
+    <div class="item" ng-repeat="item in items">
+        <i class="icon-lightbulb {{item.status}}"></i>
+        {{item.text}}
+             <span id="sliderLabel">
+              <input type="checkbox">
+              <span id="slider">
+                <span id="sliderOn">ON</span>
+                <span id="sliderOff">OFF</span>
+                <span id="sliderBlock"></span>
+              </span>
+            </span>
+            <span class="btn-group pull-right">
+              <button class="btn btn-mini btn-inverse">
+                  <i class="icon-eye-open icon-large"></i>
+              </button>
+              <button class="btn btn-mini btn-danger">
+                  <i class="icon-trash icon-large"></i>
+              </button>
+            </span>
+    </div>
+</div>
+<script >
+
+    /**
+     * Created by davcharles on 19/01/2016.
+     */
+    'use strict';
+    var app = angular.module('MainApp', []);
+
+    app.controller('MainCtrl', function($scope,$http){
+//        $scope.items = [
+//            {"text": "Yahya Kacem", "status": "active"},
+//            {"text": "tyoli Fuj", "status": "not-active"},
+//            {"text": "tyolifuj", "status": "active"},
+//            {"text": "Fuj tyoli", "status": "not-active"}
+//        ];
+        $http.get("http://localhost/PHP-JSONengine/angular_test/ang.php").then(function(response) {
+            $scope.items = response.data;
+           // console.log($scope.items );
+
+        });
+
+    });
+</script>
+</body>
+
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
