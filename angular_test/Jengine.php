@@ -7,10 +7,10 @@
  * Time: 12:13 PM
  */
 
-header('Access-Control-Allow-Origin: *');
 
 class Jengine
 {
+
 
     public  function __construct(){
 
