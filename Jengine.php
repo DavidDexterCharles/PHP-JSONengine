@@ -125,16 +125,13 @@ class Jengine
 
 
     public static function json_mysqli_result($result ) {
-        $braceopen="[";
-        $braceclose="]";
         if ($result->num_rows > 0) {
-            // output data of each row
 
-            $jsonstring= $braceopen;
             while($row = $result->fetch_assoc()) {
-                $jsonstring=$jsonstring.json_encode($row).",";
+
+                array_push($arr,$row);
             }
-            $jsonstring= trim($jsonstring,",").$braceclose;
+            $jsonstring= json_encode($arr);
             return $jsonstring;
             //print_r(json_decode($jsonstring));
         } else {

@@ -31,7 +31,7 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-$sql = "SELECT * FROM room";
+$sql = "SELECT * FROM sometable ";
 $result = $conn->query($sql);
 
 
