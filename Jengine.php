@@ -126,7 +126,7 @@ class Jengine
 
     public static function json_mysqli_result($result ) {
         if ($result->num_rows > 0) {
-
+            $arr=array();
             while($row = $result->fetch_assoc()) {
 
                 array_push($arr,$row);

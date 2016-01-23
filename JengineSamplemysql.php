@@ -19,10 +19,10 @@
 
 require_once('Jengine.php');
 
-$servername = "your_server";//localhost
-$username = "your_user_name";//root
-$password = "your_password(optional)";
-$dbname = "your_database_name";
+$servername = "";//localhost
+$username = "";//root
+$password = "";
+$dbname = "";
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
@@ -31,7 +31,7 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-$sql = "SELECT * FROM sometable ";
+$sql = "SELECT * FROM somedb ";
 $result = $conn->query($sql);
 
 
